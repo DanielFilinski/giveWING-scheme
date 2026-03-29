@@ -51,4 +51,5 @@
 - [masterclass.md](masterclass.md) — мастер-классы после обеда
 - [evening.md](evening.md) — вечерняя программа «Круг надежды»
 - [team-talk.md](team-talk.md) — командное общение
+- [meal-questions.md](meal-questions.md) — вопросы и действия за едой (20+20)
 - [materials.md](materials.md) — материалы для снабженца
