@@ -46,4 +46,5 @@
 - [masterclass.md](masterclass.md) — мастер-классы
 - [evening.md](evening.md) — вечерняя программа «Фильтры различения»
 - [team-talk.md](team-talk.md) — 2 команды вместе + костёр
+- [meal-questions.md](meal-questions.md) — вопросы и действия за едой
 - [materials.md](materials.md) — материалы для снабженца
