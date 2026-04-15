@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -37,7 +37,7 @@ jobs:
             mkdocs==1.6.1 \
             mkdocs-material==9.5.44 \
             pymdown-extensions==10.12 \
-            mkdocs-awesome-pages-plugin==2.9.3
+            mkdocs-awesome-pages-plugin==2.10.1
 
       - name: Build site
         run: mkdocs build --site-dir _site
