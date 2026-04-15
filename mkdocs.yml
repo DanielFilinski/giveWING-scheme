@@ -3,7 +3,7 @@ site_description: Материалы недельного христианско
 site_url: https://danielfilinski.github.io/giveWING-scheme/
 site_author: GiveWing
 
-docs_dir: 2026
+docs_dir: "2026"
 
 theme:
   name: material
