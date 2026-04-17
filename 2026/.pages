@@ -1,5 +1,5 @@
 nav:
-  - 2026.md
+  - Обзор: 2026.md
   - Расписание:
       - schedule26.md
   - Концепция:
@@ -7,4 +7,5 @@ nav:
       - materials-master.md
       - ideas.md
       - ideas_activities.md
+  - Идеи: ideas
   - days
