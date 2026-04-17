@@ -1,6 +1,7 @@
 nav:
   - 2026.md
-  - Расписание: schedule26.md
+  - Расписание:
+      - schedule26.md
   - Концепция:
       - mainTheme.md
       - materials-master.md
