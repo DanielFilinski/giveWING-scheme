@@ -4,153 +4,17 @@
   const APP = document.getElementById('print-app');
   if (!APP) return;
 
-  const GROUPS = [
-    {
-      id: 'general',
-      group: 'Общие материалы',
-      docs: [
-        { title: 'Расписание слёта', path: 'Информация/schedule26/' },
-        { title: 'Главная тема', path: 'Информация/mainTheme/' },
-        { title: 'Сводный реестр материалов', path: 'Информация/materials-master/' },
-        { title: 'Игры для вечерних общений', path: 'Информация/игры-для-вечерних-общений/' },
-      ],
-    },
-    {
-      id: 'day1',
-      group: 'День 1 — Понедельник. Заезд и открытие',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day1 пн/' },
-        { title: 'Регистрация и заезд', path: 'days/day1 пн/registration/' },
-        { title: 'Торжественное открытие', path: 'days/day1 пн/opening-ceremony/' },
-        { title: 'Вечерняя программа', path: 'days/day1 пн/evening/' },
-        { title: 'Общение по командам', path: 'days/day1 пн/team-talk/' },
-        { title: 'Конверты', path: 'days/day1 пн/конверты/' },
-        { title: 'Тайный друг', path: 'days/day1 пн/тайный-друг/' },
-        { title: 'Материалы дня', path: 'days/day1 пн/materials/' },
-      ],
-    },
-    {
-      id: 'day2',
-      group: 'День 2 — Вторник. Идентичность и призвание',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day2/' },
-        { title: 'Музыкальный подъём', path: 'days/day2/morning-wake/' },
-        { title: 'Утренний страж', path: 'days/day2/morning-watch/' },
-        { title: 'Lectio Divina', path: 'days/day2/morning-watch-lectio/' },
-        { title: 'Семинар', path: 'days/day2/seminar/' },
-        { title: 'Вопросы за едой', path: 'days/day2/meal-questions/' },
-        { title: 'Общелагерная игра', path: 'days/day2/game/' },
-        { title: 'Мастер-классы', path: 'days/day2/masterclass/' },
-        { title: 'Вечерняя программа', path: 'days/day2/evening/' },
-        { title: 'Общение по командам', path: 'days/day2/team-talk/' },
-        { title: 'Материалы дня', path: 'days/day2/materials/' },
-      ],
-    },
-    {
-      id: 'day3',
-      group: 'День 3 — Среда. Различение духа времени',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day3/' },
-        { title: 'Музыкальный подъём', path: 'days/day3/morning-wake/' },
-        { title: 'Утренний страж', path: 'days/day3/morning-watch/' },
-        { title: 'Lectio Divina', path: 'days/day3/morning-watch-lectio/' },
-        { title: 'Экскурсии', path: 'days/day3/excursions/' },
-        { title: 'Семинар', path: 'days/day3/seminar/' },
-        { title: 'Мастер-классы', path: 'days/day3/masterclass/' },
-        { title: 'Вопросы за едой', path: 'days/day3/meal-questions/' },
-        { title: 'Вечерняя программа', path: 'days/day3/evening/' },
-        { title: 'Общение по командам', path: 'days/day3/team-talk/' },
-        { title: 'Материалы дня', path: 'days/day3/materials/' },
-      ],
-    },
-    {
-      id: 'day4',
-      group: 'День 4 — Четверг. Любовь, которая выдерживает давление',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day4/' },
-        { title: 'Музыкальный подъём', path: 'days/day4/morning-wake/' },
-        { title: 'Утренний страж', path: 'days/day4/morning-watch/' },
-        { title: 'Lectio Divina', path: 'days/day4/morning-watch-lectio/' },
-        { title: 'Семинар', path: 'days/day4/seminar/' },
-        { title: 'Общелагерная игра «Слепой маршрут»', path: 'days/day4/game/' },
-        { title: 'Мастер-классы', path: 'days/day4/masterclass/' },
-        { title: 'Вечерняя программа', path: 'days/day4/evening/' },
-        { title: 'Общение по командам', path: 'days/day4/team-talk/' },
-        { title: 'Материалы дня', path: 'days/day4/materials/' },
-      ],
-    },
-    {
-      id: 'day5',
-      group: 'День 5 — Пятница. Тайная комната + встреча субботы',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day5 пт/' },
-        { title: 'Музыкальный подъём', path: 'days/day5 пт/morning-wake/' },
-        { title: 'Утренний страж', path: 'days/day5 пт/morning-watch/' },
-        { title: 'Lectio Divina', path: 'days/day5 пт/morning-watch-lectio/' },
-        { title: 'Экскурсии', path: 'days/day5 пт/excursions/' },
-        { title: 'Молитвенная комната: сценарий', path: 'days/day5 пт/молитвенная комната/сценарий/' },
-        { title: 'Молитвенная комната: материалы', path: 'days/day5 пт/молитвенная комната/материалы/' },
-        { title: 'Праведность Христа', path: 'days/day5 пт/молитвенная комната/праведность-христа/' },
-        { title: 'Вечерняя программа', path: 'days/day5 пт/evening/' },
-        { title: 'Общение по командам', path: 'days/day5 пт/team-talk/' },
-        { title: 'Материалы дня', path: 'days/day5 пт/materials/' },
-      ],
-    },
-    {
-      id: 'day6',
-      group: 'День 6 — Суббота. Готовность: планируй и доверяй',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day6/' },
-        { title: 'Утренний страж', path: 'days/day6/morning-watch/' },
-        { title: 'Lectio Divina', path: 'days/day6/morning-watch-lectio/' },
-        { title: 'Богослужение', path: 'days/day6/worship/' },
-        { title: 'Вечер Q&A', path: 'days/day6/qanda/' },
-        { title: 'Молитвенная тропа', path: 'days/day6/prayer-trail/' },
-        { title: 'Вечерняя программа', path: 'days/day6/evening/' },
-        { title: 'Общение по командам', path: 'days/day6/team-talk/' },
-        { title: 'Материалы дня', path: 'days/day6/materials/' },
-      ],
-    },
-    {
-      id: 'day7',
-      group: 'День 7 — Воскресенье. Верность курсу и закрытие',
-      docs: [
-        { title: 'Обзор дня', path: 'days/day7/' },
-        { title: 'Утренний страж', path: 'days/day7/morning-watch/' },
-        { title: 'Lectio Divina', path: 'days/day7/morning-watch-lectio/' },
-        { title: 'Свободные поездки', path: 'days/day7/free-trips/' },
-        { title: 'Вечерняя программа', path: 'days/day7/evening/' },
-        { title: 'Партнёры ответственности', path: 'days/day7/accountability/' },
-        { title: 'Тайный друг', path: 'days/day7/secret-friend/' },
-        { title: 'Материалы дня', path: 'days/day7/materials/' },
-      ],
-    },
-    {
-      id: 'ideas',
-      group: 'Идеи',
-      docs: [
-        { title: 'Идеи', path: 'ideas/ideas/' },
-        { title: 'Активности', path: 'ideas/ideas_activities/' },
-        { title: 'Игры (идеи)', path: 'ideas/ideas_games/' },
-        { title: 'Интерактивные вечера', path: 'ideas/ideas_evening_interactive/' },
-        { title: 'Молитвенная комната (идея)', path: 'ideas/prayer-room/' },
-        { title: 'Игра будущего', path: 'ideas/игра-будущего/' },
-        { title: 'Общелагерная игра будущего', path: 'ideas/общелагерная игра будущего/общелагерная-игра-ru/' },
-      ],
-    },
-    {
-      id: 'team',
-      group: 'Команда',
-      docs: [
-        { title: 'Обязанности координатора', path: 'команда/обязанности/обязанности-координатора/' },
-      ],
-    },
-  ];
-
   function getSiteBase() {
     return window.location.href
       .split('?')[0].split('#')[0]
       .replace(/\/print\/?$/, '/');
+  }
+
+  async function loadManifest() {
+    const url = getSiteBase() + 'print-manifest.json';
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
   }
 
   async function fetchDocContent(base, path) {
@@ -195,12 +59,12 @@
     btn.disabled = count === 0;
   }
 
-  function renderGroups() {
+  function renderGroups(groups) {
     const container = document.getElementById('print-groups');
     if (!container) return;
     container.innerHTML = '';
 
-    GROUPS.forEach(group => {
+    groups.forEach(group => {
       const card = document.createElement('div');
       card.className = 'pg-card';
 
@@ -363,8 +227,21 @@ ${sections.join('\n')}
     updatePrintBtn();
   }
 
-  function init() {
-    renderGroups();
+  async function init() {
+    const status = document.getElementById('print-status');
+    status.style.display = 'block';
+    status.textContent = 'Загружаю список документов…';
+
+    let groups;
+    try {
+      groups = await loadManifest();
+    } catch (e) {
+      status.textContent = `Ошибка загрузки списка: ${e.message}`;
+      return;
+    }
+
+    status.style.display = 'none';
+    renderGroups(groups);
 
     document.getElementById('btn-select-all').addEventListener('click', () => {
       APP.querySelectorAll('input[data-path]').forEach(cb => (cb.checked = true));
