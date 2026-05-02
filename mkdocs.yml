@@ -28,6 +28,7 @@ theme:
     - navigation.tracking
     - navigation.tabs
     - navigation.sections
+    - navigation.expand
     - navigation.top
     - navigation.indexes
     - toc.follow
@@ -66,6 +67,12 @@ plugins:
         - ru
         - en
   - awesome-pages
+
+extra_javascript:
+  - javascripts/print.js
+
+extra_css:
+  - stylesheets/print-selector.css
 
 extra:
   generator: false
