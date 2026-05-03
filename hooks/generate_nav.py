@@ -1,9 +1,10 @@
+import json
 import os
 import re
 import shutil
 
 SKIP_DIRS = {'javascripts', 'stylesheets', '.git', '__pycache__'}
-SKIP_FILES = {'навигация.md', 'print.md'}
+SKIP_FILES = {'навигация.md', 'print.md', 'print-manifest.json'}
 FILE_ICONS = {'.pdf': '📑', '.docx': '📝', '.xlsx': '📊', '.mp3': '🎵', '.mp4': '🎬'}
 
 
@@ -59,6 +60,8 @@ def _sorted(entries, dir_path, is_dir):
     return dirs + files
 
 
+# ── Navigation page ────────────────────────────────────────────────────────────
+
 def _build(docs_dir, current_dir, indent=0):
     lines = []
     pad = '    ' * indent
@@ -108,6 +111,102 @@ def _build(docs_dir, current_dir, indent=0):
     return lines
 
 
+# ── Print manifest ─────────────────────────────────────────────────────────────
+
+def _md_url_path(docs_dir, filepath):
+    """Convert .md filepath to MkDocs clean URL with trailing slash."""
+    rel = os.path.relpath(filepath, docs_dir).replace('\\', '/')
+    basename = os.path.basename(rel)
+    if basename.lower() in ('readme.md', 'index.md'):
+        parent = os.path.dirname(rel)
+        return (parent + '/') if parent else ''
+    return os.path.splitext(rel)[0] + '/'
+
+
+def _collect_group_docs(docs_dir, current_dir):
+    """Collect .md files from current_dir.
+    Files come before subdirectory files (respecting .pages nav order).
+    Stops recursing into subdirs that have their own .pages title (sub-groups).
+    """
+    result = []
+    try:
+        entries = [e for e in os.listdir(current_dir) if not e.startswith('.')]
+    except Exception:
+        return result
+
+    def is_dir(e):
+        return os.path.isdir(os.path.join(current_dir, e))
+
+    visible = [
+        e for e in entries
+        if not (is_dir(e) and e in SKIP_DIRS)
+        and not (not is_dir(e) and (e in SKIP_FILES or e == '.pages'))
+    ]
+
+    _, nav_order = _pages_info(current_dir)
+    files = [e for e in visible if not is_dir(e)]
+    dirs = sorted([e for e in visible if is_dir(e)], key=str.lower)
+
+    if nav_order:
+        ordered_files = [f for f in nav_order if f in files]
+        rest_files = sorted([f for f in files if f not in nav_order], key=str.lower)
+        files = ordered_files + rest_files
+    else:
+        files = sorted(files, key=str.lower)
+
+    for fname in files:
+        if not fname.endswith('.md'):
+            continue
+        full = os.path.join(current_dir, fname)
+        title = _md_title(full) or os.path.splitext(fname)[0]
+        result.append({'title': title, 'path': _md_url_path(docs_dir, full)})
+
+    for subdir in dirs:
+        full = os.path.join(current_dir, subdir)
+        sub_title, _ = _pages_info(full)
+        if sub_title:
+            continue  # sub-group boundary — will be its own manifest group
+        result.extend(_collect_group_docs(docs_dir, full))
+
+    return result
+
+
+def _build_manifest_groups(docs_dir, current_dir):
+    """Recursively find directories with .pages titles and build manifest groups."""
+    groups = []
+    try:
+        entries = [e for e in os.listdir(current_dir) if not e.startswith('.')]
+    except Exception:
+        return groups
+
+    def is_dir(e):
+        return os.path.isdir(os.path.join(current_dir, e))
+
+    subdirs = sorted(
+        [e for e in entries if is_dir(e) and e not in SKIP_DIRS],
+        key=str.lower,
+    )
+
+    for subdir in subdirs:
+        full = os.path.join(current_dir, subdir)
+        title, _ = _pages_info(full)
+        if not title:
+            groups.extend(_build_manifest_groups(docs_dir, full))
+            continue
+        docs = _collect_group_docs(docs_dir, full)
+        if docs:
+            rel = os.path.relpath(full, docs_dir).replace('\\', '/')
+            group_id = re.sub(r'[^\w]', '_', rel)
+            groups.append({'id': group_id, 'group': title, 'docs': docs})
+        else:
+            # Directory has a title but no direct docs → recurse for sub-groups (e.g. days/)
+            groups.extend(_build_manifest_groups(docs_dir, full))
+
+    return groups
+
+
+# ── Assets & hook entry point ──────────────────────────────────────────────────
+
 def _copy_assets(config):
     docs_dir = config['docs_dir']
     root = os.path.dirname(docs_dir)
@@ -123,8 +222,9 @@ def _copy_assets(config):
 def on_pre_build(config):
     _copy_assets(config)
     docs_dir = config['docs_dir']
-    output = os.path.join(docs_dir, 'навигация.md')
 
+    # Generate navigation page
+    nav_output = os.path.join(docs_dir, 'навигация.md')
     header = [
         '# Навигация по файлам проекта',
         '',
@@ -133,6 +233,11 @@ def on_pre_build(config):
         '---',
         '',
     ]
-
-    with open(output, 'w', encoding='utf-8') as f:
+    with open(nav_output, 'w', encoding='utf-8') as f:
         f.write('\n'.join(header + _build(docs_dir, docs_dir)) + '\n')
+
+    # Generate print manifest
+    manifest = _build_manifest_groups(docs_dir, docs_dir)
+    manifest_path = os.path.join(docs_dir, 'print-manifest.json')
+    with open(manifest_path, 'w', encoding='utf-8') as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)

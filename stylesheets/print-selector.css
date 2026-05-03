@@ -1,5 +1,6 @@
 #print-app {
   font-family: inherit;
+  padding-bottom: 4.5rem;
 }
 
 .print-toolbar {
@@ -7,15 +8,15 @@
   align-items: center;
   gap: .6rem;
   flex-wrap: wrap;
-  margin-bottom: 1.25rem;
   padding: .75rem 1rem;
   background: var(--md-default-bg-color, #fff);
-  border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0);
-  border-radius: .3rem;
-  position: sticky;
-  top: calc(var(--md-header-height, 48px) + .5rem);
-  z-index: 10;
-  box-shadow: 0 2px 6px rgba(0,0,0,.07);
+  border-top: 2px solid var(--md-default-fg-color--lightest, #e0e0e0);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  box-shadow: 0 -2px 8px rgba(0,0,0,.10);
 }
 
 .print-toolbar button {
