@@ -12,7 +12,7 @@
 
   async function loadManifest() {
     const url = getSiteBase() + 'print-manifest.json';
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: 'no-cache' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
   }
