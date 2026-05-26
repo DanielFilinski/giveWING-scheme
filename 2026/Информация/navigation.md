@@ -108,11 +108,11 @@
 
 ---
 
-## День 6 — Суббота. Готовность: планируй и доверяй
+## День 6 — Суббота. Приоритеты последнего времени
 
 | Файл | Содержание |
 |------|-----------|
-| [days/day6/README.md](../days/day6/README.md) | День 6 — Суббота. ГОТОВНОСТЬ: ПЛАНИРУЙ И ДОВЕРЯЙ |
+| [days/day6/README.md](../days/day6/README.md) | День 6 — Суббота. ПРИОРИТЕТЫ ПОСЛЕДНЕГО ВРЕМЕНИ |
 | [days/day6/morning-watch.md](../days/day6/morning-watch.md) | Утренний страж — День 6 / Суббота |
 | [days/day6/morning-watch-lectio.md](../days/day6/morning-watch-lectio.md) | Lectio Divina — День 6 / Суббота (альтернативный формат утреннего стража) |
 | [days/day6/worship.md](../days/day6/worship.md) | Богослужение — День 6 / Суббота (10:00–12:30) |
@@ -124,11 +124,11 @@
 
 ---
 
-## День 7 — Воскресенье. Верность курсу и закрытие
+## День 7 — Воскресенье. Маранафа: жить ожиданием
 
 | Файл | Содержание |
 |------|-----------|
-| [days/day7/README.md](../days/day7/README.md) | День 7 — Воскресенье. ВЕРНОСТЬ КУРСУ И ЗАКРЫТИЕ |
+| [days/day7/README.md](../days/day7/README.md) | День 7 — Воскресенье. МАРАНАФА: ЖИТЬ ОЖИДАНИЕМ |
 | [days/day7/morning-watch.md](../days/day7/morning-watch.md) | Утренний страж — День 7 |
 | [days/day7/morning-watch-lectio.md](../days/day7/morning-watch-lectio.md) | Lectio Divina — День 7 (альтернативный формат утреннего стража) |
 | [days/day7/free-trips.md](../days/day7/free-trips.md) | Свободные поездки — День 7 (09:30–17:30) |
