@@ -134,5 +134,4 @@
 | [days/day7/free-trips.md](../days/day7/free-trips.md) | Свободные поездки — День 7 (09:30–17:30) |
 | [days/day7/evening.md](../days/day7/evening.md) | Вечерняя программа — ЗАКРЫТИЕ (19:00–21:00) |
 | [days/day7/accountability.md](../days/day7/accountability.md) | Партнёры ответственности на 30 дней (21:15) |
-| [days/day7/secret-friend.md](../days/day7/secret-friend.md) | Раскрытие тайного друга + Лагерная почта (21:30) |
 | [days/day7/materials.md](../days/day7/materials.md) | Материалы — День 7 (Закрытие) |
