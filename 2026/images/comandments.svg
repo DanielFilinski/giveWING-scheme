@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Stone tablets (biblical tablets) illustration">
+  <defs>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9d0c5"/>
+      <stop offset="0.55" stop-color="#bdb1a4"/>
+      <stop offset="1" stop-color="#9f9286"/>
+    </linearGradient>
+    <linearGradient id="stone2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e5ddd4" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#8f8276" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4"/>
+    </filter>
+
+    <!-- Text style -->
+    <style>
+      .carve { fill: none; stroke: #4a3f36; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; opacity: 0.55; }
+      .carve2 { fill: none; stroke: #2f2822; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.35; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f3efe9"/>
+  <ellipse cx="400" cy="520" rx="280" ry="60" fill="#000" opacity="0.08"/>
+
+  <!-- Tablets group -->
+  <g filter="url(#shadow)">
+    <!-- Left tablet -->
+    <path d="M170,170
+             C170,105 220,70 285,70
+             C330,70 360,88 375,120
+             C392,88 422,70 468,70
+             C535,70 585,105 585,170
+             L585,460
+             C585,505 552,540 507,540
+             L248,540
+             C203,540 170,505 170,460
+             Z"
+          fill="url(#stone)" stroke="#6f6257" stroke-width="10" filter="url(#rough)"/>
+
+    <!-- Center seam (between tablets) -->
+    <path d="M378,120 L378,540" stroke="#6f6257" stroke-width="10" opacity="0.35"/>
+    <path d="M392,120 L392,540" stroke="#fff" stroke-width="4" opacity="0.22"/>
+
+    <!-- Inner bevels -->
+    <path d="M205,175
+             C205,130 240,105 285,105
+             C322,105 345,118 360,145
+             C373,118 398,105 435,105
+             C480,105 515,130 515,175
+             L515,450
+             C515,480 492,505 462,505
+             L260,505
+             C228,505 205,480 205,450
+             Z"
+          fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="6"/>
+
+    <path d="M212,182
+             C212,142 243,120 285,120
+             C320,120 340,132 353,155
+             C366,132 386,120 420,120
+             C462,120 493,142 493,182
+             L493,445
+             C493,468 476,487 453,487
+             L266,487
+             C231,487 212,468 212,445
+             Z"
+          fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="4"/>
+
+    <!-- Chips/cracks -->
+    <path d="M220,515 C240,500 250,495 270,485" class="carve2"/>
+    <path d="M535,210 C520,225 510,240 505,260" class="carve2"/>
+    <path d="M260,160 C255,185 240,205 225,220" class="carve2"/>
+
+    <!-- Inscription lines (stylized, not literal text) -->
+    <!-- Left tablet "lines" -->
+    <g transform="translate(235,190)">
+      <path d="M0,0 C40,-10 85,-10 125,0" class="carve"/>
+      <path d="M10,32 C55,18 98,18 140,32" class="carve"/>
+      <path d="M0,64 C45,52 95,52 150,64" class="carve"/>
+      <path d="M10,96 C50,86 100,86 140,96" class="carve"/>
+      <path d="M0,128 C45,116 95,116 150,128" class="carve"/>
+      <path d="M10,160 C55,148 98,148 140,160" class="carve"/>
+      <path d="M0,192 C45,182 95,182 150,192" class="carve"/>
+      <path d="M10,224 C55,214 98,214 140,224" class="carve"/>
+      <path d="M0,256 C45,246 95,246 150,256" class="carve"/>
+    </g>
+
+    <!-- Right tablet "lines" -->
+    <g transform="translate(425,190)">
+      <path d="M0,0 C45,-10 95,-10 150,0" class="carve"/>
+      <path d="M10,32 C55,18 105,18 160,32" class="carve"/>
+      <path d="M0,64 C50,52 105,52 165,64" class="carve"/>
+      <path d="M10,96 C55,86 105,86 160,96" class="carve"/>
+      <path d="M0,128 C50,116 105,116 165,128" class="carve"/>
+      <path d="M10,160 C55,148 105,148 160,160" class="carve"/>
+      <path d="M0,192 C50,182 105,182 165,192" class="carve"/>
+      <path d="M10,224 C55,214 105,214 160,224" class="carve"/>
+      <path d="M0,256 C50,246 105,246 165,256" class="carve"/>
+    </g>
+
+    <!-- Highlight sheen -->
+    <path d="M210,155
+             C235,110 265,95 300,92
+             C275,120 260,160 260,220
+             C260,340 300,450 340,520
+             C290,510 250,500 225,470
+             C205,445 200,420 200,380
+             L200,190
+             C200,175 203,165 210,155
+             Z"
+          fill="url(#stone2)" opacity="0.35"/>
+
+    <!-- Outer stroke for definition -->
+    <path d="M170,170
+             C170,105 220,70 285,70
+             C330,70 360,88 375,120
+             C392,88 422,70 468,70
+             C535,70 585,105 585,170
+             L585,460
+             C585,505 552,540 507,540
+             L248,540
+             C203,540 170,505 170,460
+             Z"
+          fill="none" stroke="#5d5148" stroke-width="6" opacity="0.8"/>
+  </g>
+</svg>
