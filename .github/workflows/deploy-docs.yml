@@ -6,6 +6,9 @@ on:
     paths:
       - '2026/**'
       - 'mkdocs.yml'
+      - 'hooks/**'
+      - 'javascripts/**'
+      - 'stylesheets/**'
       - '.github/workflows/deploy-docs.yml'
       - '**/.pages'
   workflow_dispatch:

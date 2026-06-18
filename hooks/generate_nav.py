@@ -123,19 +123,26 @@ def _md_url_path(docs_dir, filepath):
     return os.path.splitext(rel)[0] + '/'
 
 
-def _collect_group_docs(docs_dir, current_dir):
-    """Collect .md files from current_dir.
-    Files come before subdirectory files (respecting .pages nav order).
-    Stops recursing into subdirs that have their own .pages title (sub-groups).
+def _build_print_tree(docs_dir, current_dir):
+    """Mirror the navigation tree (same ordering and skip rules as _build),
+    but keep only printable (.md) docs as selectable leaves.
+
+    Returns a list of nodes, each either:
+      {'type': 'doc', 'title': str, 'path': str}   — a printable page
+      {'type': 'dir', 'label': str, 'children': [...]}  — a folder
+
+    Directories with no printable descendants are pruned, so the print
+    selector shows exactly what the navigation page shows, minus files that
+    cannot be rendered to print (images, audio, office/pdf attachments).
     """
-    result = []
+    nodes = []
     try:
         entries = [e for e in os.listdir(current_dir) if not e.startswith('.')]
     except Exception:
-        return result
+        return nodes
 
-    def is_dir(e):
-        return os.path.isdir(os.path.join(current_dir, e))
+    def is_dir(name):
+        return os.path.isdir(os.path.join(current_dir, name))
 
     visible = [
         e for e in entries
@@ -143,66 +150,21 @@ def _collect_group_docs(docs_dir, current_dir):
         and not (not is_dir(e) and (e in SKIP_FILES or e == '.pages'))
     ]
 
-    _, nav_order = _pages_info(current_dir)
-    files = [e for e in visible if not is_dir(e)]
-    dirs = sorted([e for e in visible if is_dir(e)], key=str.lower)
-
-    if nav_order:
-        ordered_files = [f for f in nav_order if f in files]
-        rest_files = sorted([f for f in files if f not in nav_order], key=str.lower)
-        files = ordered_files + rest_files
-    else:
-        files = sorted(files, key=str.lower)
-
-    for fname in files:
-        if not fname.endswith('.md'):
-            continue
-        full = os.path.join(current_dir, fname)
-        title = _md_title(full) or os.path.splitext(fname)[0]
-        result.append({'title': title, 'path': _md_url_path(docs_dir, full)})
-
-    for subdir in dirs:
-        full = os.path.join(current_dir, subdir)
-        sub_title, _ = _pages_info(full)
-        if sub_title:
-            continue  # sub-group boundary — will be its own manifest group
-        result.extend(_collect_group_docs(docs_dir, full))
-
-    return result
-
-
-def _build_manifest_groups(docs_dir, current_dir):
-    """Recursively find directories with .pages titles and build manifest groups."""
-    groups = []
-    try:
-        entries = [e for e in os.listdir(current_dir) if not e.startswith('.')]
-    except Exception:
-        return groups
-
-    def is_dir(e):
-        return os.path.isdir(os.path.join(current_dir, e))
-
-    subdirs = sorted(
-        [e for e in entries if is_dir(e) and e not in SKIP_DIRS],
-        key=str.lower,
-    )
-
-    for subdir in subdirs:
-        full = os.path.join(current_dir, subdir)
-        title, _ = _pages_info(full)
-        if not title:
-            groups.extend(_build_manifest_groups(docs_dir, full))
-            continue
-        docs = _collect_group_docs(docs_dir, full)
-        if docs:
-            rel = os.path.relpath(full, docs_dir).replace('\\', '/')
-            group_id = re.sub(r'[^\w]', '_', rel)
-            groups.append({'id': group_id, 'group': title, 'docs': docs})
+    for entry in _sorted(visible, current_dir, is_dir):
+        full = os.path.join(current_dir, entry)
+        if is_dir(entry):
+            children = _build_print_tree(docs_dir, full)
+            if not children:
+                continue  # no printable docs inside → don't show an empty folder
+            label, _ = _pages_info(full)
+            nodes.append({'type': 'dir', 'label': label or entry, 'children': children})
         else:
-            # Directory has a title but no direct docs → recurse for sub-groups (e.g. days/)
-            groups.extend(_build_manifest_groups(docs_dir, full))
+            if not entry.endswith('.md'):
+                continue
+            title = _md_title(full) or os.path.splitext(entry)[0]
+            nodes.append({'type': 'doc', 'title': title, 'path': _md_url_path(docs_dir, full)})
 
-    return groups
+    return nodes
 
 
 # ── Assets & hook entry point ──────────────────────────────────────────────────
@@ -236,8 +198,8 @@ def on_pre_build(config):
     with open(nav_output, 'w', encoding='utf-8') as f:
         f.write('\n'.join(header + _build(docs_dir, docs_dir)) + '\n')
 
-    # Generate print manifest
-    manifest = _build_manifest_groups(docs_dir, docs_dir)
+    # Generate print manifest (full navigation tree, printable docs only)
+    manifest = _build_print_tree(docs_dir, docs_dir)
     manifest_path = os.path.join(docs_dir, 'print-manifest.json')
     with open(manifest_path, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)

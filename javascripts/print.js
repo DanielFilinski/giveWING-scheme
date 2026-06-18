@@ -59,69 +59,76 @@
     btn.disabled = count === 0;
   }
 
-  function renderGroups(groups) {
-    const container = document.getElementById('print-groups');
-    if (!container) return;
-    container.innerHTML = '';
+  // Recompute every folder checkbox (checked / indeterminate) from the state
+  // of its descendant document checkboxes.
+  function refreshFolders() {
+    APP.querySelectorAll('.pg-folder').forEach(folder => {
+      const cb = folder.querySelector(':scope > .pg-folder-header > .pg-folder-cb');
+      if (!cb) return;
+      const all = [...folder.querySelectorAll('input[data-path]')];
+      const checked = all.filter(c => c.checked).length;
+      cb.checked = all.length > 0 && checked === all.length;
+      cb.indeterminate = checked > 0 && checked < all.length;
+    });
+  }
 
-    groups.forEach(group => {
-      const card = document.createElement('div');
-      card.className = 'pg-card';
+  function renderTree(nodes, parentEl, depth) {
+    nodes.forEach(node => {
+      if (node.type === 'dir') {
+        const folder = document.createElement('div');
+        folder.className = 'pg-folder';
 
-      const header = document.createElement('div');
-      header.className = 'pg-header';
-
-      const groupCb = document.createElement('input');
-      groupCb.type = 'checkbox';
-      groupCb.className = 'pg-header-cb';
-
-      const groupLabel = document.createElement('label');
-      groupLabel.className = 'pg-header-label';
-      groupLabel.textContent = group.group;
-
-      groupCb.addEventListener('change', () => {
-        card.querySelectorAll('input[data-path]').forEach(cb => {
-          cb.checked = groupCb.checked;
-        });
-        updatePrintBtn();
-      });
-
-      function syncGroupCb() {
-        const all = [...card.querySelectorAll('input[data-path]')];
-        const checked = all.filter(cb => cb.checked);
-        groupCb.indeterminate = checked.length > 0 && checked.length < all.length;
-        groupCb.checked = checked.length === all.length;
-        updatePrintBtn();
-      }
-
-      header.appendChild(groupCb);
-      header.appendChild(groupLabel);
-      card.appendChild(header);
-
-      const list = document.createElement('ul');
-      list.className = 'pg-list';
-
-      group.docs.forEach(doc => {
-        const li = document.createElement('li');
-        li.className = 'pg-item';
+        const header = document.createElement('label');
+        header.className = 'pg-folder-header';
+        header.style.setProperty('--depth', depth);
 
         const cb = document.createElement('input');
         cb.type = 'checkbox';
-        cb.dataset.path = doc.path;
-        cb.dataset.title = doc.title;
-        cb.addEventListener('change', syncGroupCb);
+        cb.className = 'pg-folder-cb';
+        cb.addEventListener('change', () => {
+          folder.querySelectorAll('input[data-path]').forEach(c => {
+            c.checked = cb.checked;
+          });
+          refreshFolders();
+          updatePrintBtn();
+        });
 
-        const label = document.createElement('label');
-        label.className = 'pg-item-label';
-        label.textContent = doc.title;
+        const text = document.createElement('span');
+        text.className = 'pg-folder-label';
+        text.textContent = node.label;
 
-        li.appendChild(cb);
-        li.appendChild(label);
-        list.appendChild(li);
-      });
+        header.appendChild(cb);
+        header.appendChild(text);
+        folder.appendChild(header);
 
-      card.appendChild(list);
-      container.appendChild(card);
+        const children = document.createElement('div');
+        children.className = 'pg-children';
+        renderTree(node.children, children, depth + 1);
+        folder.appendChild(children);
+
+        parentEl.appendChild(folder);
+      } else {
+        const item = document.createElement('label');
+        item.className = 'pg-item';
+        item.style.setProperty('--depth', depth);
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.dataset.path = node.path;
+        cb.dataset.title = node.title;
+        cb.addEventListener('change', () => {
+          refreshFolders();
+          updatePrintBtn();
+        });
+
+        const text = document.createElement('span');
+        text.className = 'pg-item-label';
+        text.textContent = node.title;
+
+        item.appendChild(cb);
+        item.appendChild(text);
+        parentEl.appendChild(item);
+      }
     });
   }
 
@@ -241,23 +248,20 @@ ${sections.join('\n')}
     }
 
     status.style.display = 'none';
-    renderGroups(groups);
+    const container = document.getElementById('print-groups');
+    container.innerHTML = '';
+    renderTree(groups, container, 0);
+    refreshFolders();
 
     document.getElementById('btn-select-all').addEventListener('click', () => {
       APP.querySelectorAll('input[data-path]').forEach(cb => (cb.checked = true));
-      APP.querySelectorAll('input.pg-header-cb').forEach(cb => {
-        cb.checked = true;
-        cb.indeterminate = false;
-      });
+      refreshFolders();
       updatePrintBtn();
     });
 
     document.getElementById('btn-deselect-all').addEventListener('click', () => {
       APP.querySelectorAll('input[data-path]').forEach(cb => (cb.checked = false));
-      APP.querySelectorAll('input.pg-header-cb').forEach(cb => {
-        cb.checked = false;
-        cb.indeterminate = false;
-      });
+      refreshFolders();
       updatePrintBtn();
     });
 
