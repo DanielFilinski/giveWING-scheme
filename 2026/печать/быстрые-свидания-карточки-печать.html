@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Быстрые свидания — карточки с вопросами · Слёт 2026</title>
+<style>
+  :root {
+    --ink:   #2b2118;   /* тёплый тёмно-коричневый текст */
+    --accent:#b4532a;   /* терракота — тёплый акцент */
+    --soft:  #f7efe3;   /* кремовый фон карточки */
+    --line:  #e3d3bb;   /* мягкая линия */
+    --num:   #c98b5e;   /* номера вопросов */
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 6mm;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "PT Sans", "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  /* ---- Одна карточка = половина A4 (две на лист) ---- */
+  .card {
+    height: 138mm;                 /* две карточки на страницу A4 */
+    border: 1.4px solid var(--line);
+    border-radius: 5mm;
+    background:
+      radial-gradient(120% 80% at 50% 0%, #fffaf2 0%, var(--soft) 70%);
+    padding: 7mm 9mm 6mm;
+    margin-bottom: 4mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:nth-child(2n) {
+    break-after: page;
+    page-break-after: always;
+    margin-bottom: 0;
+  }
+
+  /* ---- Шапка ---- */
+  .head {
+    text-align: center;
+    margin: 0 0 4mm;
+    padding-bottom: 3mm;
+    border-bottom: 1.4px dashed var(--line);
+  }
+  .head .heart { font-size: 13pt; color: var(--accent); }
+  .head h1 {
+    font-size: 16pt;
+    margin: 1mm 0 0.5mm;
+    letter-spacing: 0.3px;
+    color: var(--accent);
+  }
+  .head .sub {
+    font-size: 9.5pt;
+    color: #8a7a64;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* ---- Сетка вопросов в две колонки ---- */
+  .questions {
+    column-count: 2;
+    column-gap: 8mm;
+    column-rule: 1px dotted var(--line);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: q;
+  }
+  .questions li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    display: flex;
+    align-items: baseline;
+    gap: 2.4mm;
+    margin: 0 0 2.3mm;
+    font-size: 10.3pt;
+    line-height: 1.22;
+  }
+  .questions li::before {
+    counter-increment: q;
+    content: counter(q);
+    flex: 0 0 auto;
+    min-width: 5.6mm;
+    height: 5.6mm;
+    line-height: 5.6mm;
+    text-align: center;
+    font-size: 8.4pt;
+    font-weight: bold;
+    color: #fff;
+    background: var(--num);
+    border-radius: 50%;
+  }
+
+  /* ---- Подвал-подсказка на карточке ---- */
+  .foot {
+    position: absolute;
+    left: 9mm;
+    right: 9mm;
+    bottom: 4mm;
+    text-align: center;
+    font-size: 8.2pt;
+    color: #a3917a;
+    border-top: 1px dotted var(--line);
+    padding-top: 2mm;
+  }
+
+  /* ---- Подсказка по печати — только на экране ---- */
+  .note {
+    background: #fffae6;
+    border: 1px solid #e0d48a;
+    padding: 8px 12px;
+    margin: 10px;
+    border-radius: 6px;
+    font-size: 10pt;
+    color: #665c00;
+    line-height: 1.4;
+  }
+  @media print { .note { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="note">
+  Печать: <b>Ctrl+P</b> → принтер или «Сохранить в PDF». На листе A4 — <b>две одинаковые карточки</b>:
+  распечатайте нужное число листов и разрежьте пополам. В окне печати: масштаб <b>100%</b>,
+  поля <b>«По умолчанию»</b>, снять галочку <b>«Колонтитулы / Headers and footers»</b>.
+</div>
+
+<!-- ===== Карточка (повторяется — каждому участнику) ===== -->
+<section class="card">
+  <header class="head">
+    <div class="heart">&#10084;</div>
+    <h1>Быстрые свидания</h1>
+    <p class="sub">Спрашивайте по очереди — отвечают оба. Выберите любые вопросы.</p>
+  </header>
+
+  <ol class="questions">
+    <li>Что тебя сегодня порадовало или рассмешило?</li>
+    <li>Чай или кофе — и за каким разговором?</li>
+    <li>Какое место на земле ты называешь «домом»?</li>
+    <li>Один факт о себе, который обычно удивляет людей.</li>
+    <li>Что у тебя хорошо получается — чем мог бы послужить другим?</li>
+    <li>Какая книга, фильм или песня в последнее время задела сердце?</li>
+    <li>За что ты благодарен Богу в этом году?</li>
+    <li>Свободный день без единого дела — как бы ты его провёл?</li>
+    <li>Что ты умеешь делать, что совсем не вписывается в твой образ?</li>
+    <li>С чего обычно начинается твоё утро?</li>
+    <li>Какое блюдо ты готовишь лучше всего?</li>
+    <li>Чему ты научился за последний год?</li>
+    <li>Какое место мечтаешь однажды увидеть — и почему именно его?</li>
+    <li>Что тебя вдохновляет — человек, дело, занятие?</li>
+    <li>Какой была твоя любимая игра или занятие в детстве?</li>
+    <li>Чем ты любишь заниматься для души?</li>
+    <li>Какой совет тебе когда-то дали — и ты помнишь его до сих пор?</li>
+    <li>Что для тебя «идеальный отдых»?</li>
+    <li>Какое маленькое событие за неделю сделало тебя счастливее?</li>
+    <li>Вечер за разговором с любым человеком — кто бы это был?</li>
+  </ol>
+
+  <div class="foot">Слёт 2026 &middot; «Христианин последнего времени» &middot; будь искренним и тёплым</div>
+</section>
+
+<!-- ===== Вторая (идентичная) карточка на том же листе ===== -->
+<section class="card">
+  <header class="head">
+    <div class="heart">&#10084;</div>
+    <h1>Быстрые свидания</h1>
+    <p class="sub">Спрашивайте по очереди — отвечают оба. Выберите любые вопросы.</p>
+  </header>
+
+  <ol class="questions">
+    <li>Что тебя сегодня порадовало или рассмешило?</li>
+    <li>Чай или кофе — и за каким разговором?</li>
+    <li>Какое место на земле ты называешь «домом»?</li>
+    <li>Один факт о себе, который обычно удивляет людей.</li>
+    <li>Что у тебя хорошо получается — чем мог бы послужить другим?</li>
+    <li>Какая книга, фильм или песня в последнее время задела сердце?</li>
+    <li>За что ты благодарен Богу в этом году?</li>
+    <li>Свободный день без единого дела — как бы ты его провёл?</li>
+    <li>Что ты умеешь делать, что совсем не вписывается в твой образ?</li>
+    <li>С чего обычно начинается твоё утро?</li>
+    <li>Какое блюдо ты готовишь лучше всего?</li>
+    <li>Чему ты научился за последний год?</li>
+    <li>Какое место мечтаешь однажды увидеть — и почему именно его?</li>
+    <li>Что тебя вдохновляет — человек, дело, занятие?</li>
+    <li>Какой была твоя любимая игра или занятие в детстве?</li>
+    <li>Чем ты любишь заниматься для души?</li>
+    <li>Какой совет тебе когда-то дали — и ты помнишь его до сих пор?</li>
+    <li>Что для тебя «идеальный отдых»?</li>
+    <li>Какое маленькое событие за неделю сделало тебя счастливее?</li>
+    <li>Вечер за разговором с любым человеком — кто бы это был?</li>
+  </ol>
+
+  <div class="foot">Слёт 2026 &middot; «Христианин последнего времени» &middot; будь искренним и тёплым</div>
+</section>
+
+</body>
+</html>
