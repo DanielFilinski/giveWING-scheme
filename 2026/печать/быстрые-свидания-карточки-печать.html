@@ -29,7 +29,7 @@
 
   /* ---- Одна карточка = половина A4 (две на лист) ---- */
   .card {
-    height: 138mm;                 /* две карточки на страницу A4 */
+    height: 135mm;                 /* две карточки на страницу A4 */
     border: 1.4px solid var(--line);
     border-radius: 5mm;
     background:
@@ -41,7 +41,7 @@
     position: relative;
     overflow: hidden;
   }
-  .card:nth-child(2n) {
+  .card:nth-of-type(2n) {
     break-after: page;
     page-break-after: always;
     margin-bottom: 0;
@@ -54,7 +54,7 @@
     padding-bottom: 3mm;
     border-bottom: 1.4px dashed var(--line);
   }
-  .head .heart { font-size: 13pt; color: var(--accent); }
+  .head .talk { font-size: 13pt; color: var(--accent); letter-spacing: 2px; }
   .head h1 {
     font-size: 16pt;
     margin: 1mm 0 0.5mm;
@@ -141,9 +141,7 @@
 <!-- ===== Карточка (повторяется — каждому участнику) ===== -->
 <section class="card">
   <header class="head">
-    <div class="heart">&#10084;</div>
-    <h1>Быстрые свидания</h1>
-    <p class="sub">Спрашивайте по очереди — отвечают оба. Выберите любые вопросы.</p>
+    <div class="talk">&#128172; &#128172; &#128172;</div>
   </header>
 
   <ol class="questions">
@@ -175,9 +173,7 @@
 <!-- ===== Вторая (идентичная) карточка на том же листе ===== -->
 <section class="card">
   <header class="head">
-    <div class="heart">&#10084;</div>
-    <h1>Быстрые свидания</h1>
-    <p class="sub">Спрашивайте по очереди — отвечают оба. Выберите любые вопросы.</p>
+    <div class="talk">&#128172; &#128172; &#128172;</div>
   </header>
 
   <ol class="questions">
