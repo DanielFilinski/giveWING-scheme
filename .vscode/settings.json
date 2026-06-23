@@ -1,0 +1,15 @@
+{
+    "markdown.preview.frontMatter": "hide",
+
+    "markdown-pdf.displayHeaderFooter": false,
+    "markdown-pdf.margin.top": "0mm",
+    "markdown-pdf.margin.bottom": "0mm",
+    "markdown-pdf.margin.left": "0mm",
+    "markdown-pdf.margin.right": "0mm",
+    "markdown-pdf.printBackground": true,
+    "markdown-pdf.stylesRelativePathFile": false,
+    "markdown-pdf.includeDefaultStyles": false,
+    "markdown-pdf.styles": [
+        ".vscode/print.css"
+    ]
+}

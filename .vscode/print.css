@@ -1,0 +1,34 @@
+/* Сжатые стили печати для утренних стражей и материалов слёта */
+@page {
+  margin: 4mm 6mm;
+  size: A4;
+}
+
+body {
+  font-size: 10.2pt;
+  line-height: 1.28;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 { page-break-after: avoid; }
+h1 { font-size: 14pt;   margin: 0 0 2pt; }
+h2 { font-size: 11.5pt; margin: 6pt 0 1pt; }
+h3 { font-size: 10.5pt; margin: 4pt 0 1pt; }
+
+p { margin: 0 0 3pt; orphans: 2; widows: 2; }
+
+ul, ol { margin: 1pt 0 3pt; padding-left: 16px; }
+li { margin: 0 0 1pt; }
+
+blockquote {
+  margin: 2pt 0 3pt;
+  padding: 0 0 0 8px;
+  border-left: 2px solid #888;
+  font-style: italic;
+}
+
+hr { display: none; }
+em { color: #333; }
