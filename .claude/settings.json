@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(grep -iA40 \"день 6\\\\|day6\\\\|день6\\\\|суббот\")"
     ]
   }
 }
