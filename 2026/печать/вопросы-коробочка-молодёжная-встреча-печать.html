@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Вопросы для коробочки — молодёжная встреча</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 6mm;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "PT Sans", "Segoe UI", Arial, sans-serif;
+    color: #111;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1.title {
+    text-align: center;
+    font-size: 12pt;
+    margin: 0 0 2mm;
+  }
+
+  p.hint {
+    text-align: center;
+    font-size: 9pt;
+    color: #555;
+    margin: 0 0 4mm;
+    line-height: 1.3;
+  }
+
+  /* Сетка карточек: 2 колонки */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* Карточка — режется по горизонтальным пунктирам */
+  .card {
+    border: none;
+    border-bottom: 1px dashed #888;   /* только горизонтальные линии реза */
+    margin: 0;
+    padding: 2.6mm 4mm 2.6mm 4mm;
+    min-height: 16mm;
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* верхняя линия реза у первой строки каждой колонки */
+  .card:nth-child(1),
+  .card:nth-child(2) {
+    border-top: 1px dashed #888;
+  }
+
+  .num {
+    flex: 0 0 auto;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #b0651f;
+    min-width: 6mm;
+  }
+
+  .q {
+    font-size: 10pt;
+    line-height: 1.22;
+  }
+
+  /* ножницы в углу для наглядности реза */
+  .card { position: relative; }
+  .card::before {
+    content: "\2702";
+    position: absolute;
+    top: -1.4mm;
+    left: 2mm;
+    font-size: 7pt;
+    color: #aaa;
+    background: #fff;
+    padding: 0 1mm;
+  }
+
+  @media print {
+    p.hint { display: none; }     /* инструкция не печатается — экономит место */
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="title">Вопросы для знакомства · коробочка</h1>
+  <p class="hint">
+    Распечатать → разрезать по пунктиру → сложить в коробочку.
+    Каждый вытягивает листок, читает вопрос вслух и отвечает. Любой вопрос можно пропустить.
+  </p>
+
+  <div class="grid">
+    <div class="card"><span class="num">1</span><span class="q">Ты сова или жаворонок? А каким был бы твой идеальный режим дня, если бы никто не мешал?</span></div>
+    <div class="card"><span class="num">2</span><span class="q">Какие три слова лучше всего описывают тебя?</span></div>
+    <div class="card"><span class="num">3</span><span class="q">Какую музыку ты любишь слушать? Есть песня, которую можешь слушать бесконечно?</span></div>
+    <div class="card"><span class="num">4</span><span class="q">Какое твоё любимое блюдо — и умеешь ли ты его готовить?</span></div>
+    <div class="card"><span class="num">5</span><span class="q">Кем ты мечтал стать в детстве — и почему?</span></div>
+    <div class="card"><span class="num">6</span><span class="q">В каких интересных местах ты уже побывал?</span></div>
+    <div class="card"><span class="num">7</span><span class="q">Какое место ты обязательно хочешь когда-нибудь посетить?</span></div>
+    <div class="card"><span class="num">8</span><span class="q">Если бы ты завтра проснулся с тремя новыми умениями — какими и почему?</span></div>
+    <div class="card"><span class="num">9</span><span class="q">Расскажи 3 странных факта о себе.</span></div>
+    <div class="card"><span class="num">10</span><span class="q">Какая самая забавная вещь когда-либо случалась с тобой?</span></div>
+    <div class="card"><span class="num">11</span><span class="q">Есть ли история, которую ты рассказываешь так часто, что друзья уже смеются заранее? Расскажи её.</span></div>
+    <div class="card"><span class="num">12</span><span class="q">Что из детства ты всё ещё любишь делать?</span></div>
+    <div class="card"><span class="num">13</span><span class="q">Какой была твоя любимая детская игрушка или игра?</span></div>
+    <div class="card"><span class="num">14</span><span class="q">Чем ты увлекаешься в свободное время? Есть хобби, о котором мало кто знает?</span></div>
+    <div class="card"><span class="num">15</span><span class="q">Какой свой недостаток ты по-доброму любишь и не хочешь с ним расставаться?</span></div>
+    <div class="card"><span class="num">16</span><span class="q">Когда ты в последний раз по-настоящему гордился собой?</span></div>
+    <div class="card"><span class="num">17</span><span class="q">За что ты испытываешь самую сильную благодарность в своей жизни?</span></div>
+    <div class="card"><span class="num">18</span><span class="q">Что тебя легко может рассмешить, а что — растрогать до слёз?</span></div>
+    <div class="card"><span class="num">19</span><span class="q">Кто тебя вдохновляет — и чем именно?</span></div>
+    <div class="card"><span class="num">20</span><span class="q">Что для тебя самое важное в жизни?</span></div>
+    <div class="card"><span class="num">21</span><span class="q">Что для тебя значит слово «дружба»?</span></div>
+    <div class="card"><span class="num">22</span><span class="q">Что для тебя самое главное в друге?</span></div>
+    <div class="card"><span class="num">23</span><span class="q">Что для тебя значит слово «семья»?</span></div>
+    <div class="card"><span class="num">24</span><span class="q">С кем из родственников у тебя самые тёплые отношения и почему?</span></div>
+    <div class="card"><span class="num">25</span><span class="q">Какое качество в человеке ты ценишь больше всего?</span></div>
+    <div class="card"><span class="num">26</span><span class="q">Как ты пришёл к вере — и что в ней для тебя самое главное?</span></div>
+    <div class="card"><span class="num">27</span><span class="q">За что ты больше всего благодарен Богу в этом году?</span></div>
+    <div class="card"><span class="num">28</span><span class="q">Если бы ты мог задать Богу один вопрос — что бы ты спросил?</span></div>
+    <div class="card"><span class="num">29</span><span class="q">С кем из присутствующих здесь ты хотел бы оказаться на необитаемом острове — и почему?</span></div>
+    <div class="card"><span class="num">30</span><span class="q">Если бы у тебя был целый свободный день без единого дела — как бы ты его провёл?</span></div>
+  </div>
+
+</body>
+</html>
